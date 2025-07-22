@@ -1,4 +1,4 @@
-New vewsion - QuickLaunch v1.0.1
+// New vewsion - QuickLaunch v1.0.1
 import SwiftUI
 import Combine
 
