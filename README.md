@@ -1,5 +1,5 @@
 # 🚀 QuickLaunch
-
+![img](img.png)
 **O lançador de aplicativos para macOS que você sempre quis.**  
 Encontre, organize e descubra aplicativos de forma inteligente e ultrarrápida.
 
