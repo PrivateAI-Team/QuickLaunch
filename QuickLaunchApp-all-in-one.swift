@@ -1,3 +1,4 @@
+New vewsion - QuickLaunch v1.0.1
 import SwiftUI
 import Combine
 
@@ -1489,7 +1490,7 @@ struct ContentView: View {
                                                 return true
                                             }
                                     case .folder(let folder):
-                                        FolderIconView(folder: folder, index: index)
+                                        FolderIconView(folder: folder, viewModel: viewModel, index: index)
                                             .onTapGesture { viewModel.enterFolder(folder) }
                                             .onDrop(of: ["public.text"], isTargeted: nil) { providers, _ in
                                                 handleDrop(providers: providers, targetID: folder.id)
@@ -1684,7 +1685,7 @@ struct AppIconView: View {
 
 struct FolderIconView: View {
     @ObservedObject var folder: FolderInfo
-    @EnvironmentObject var viewModel: AppViewModel
+    @ObservedObject var viewModel: AppViewModel
     
     let index: Int
     
