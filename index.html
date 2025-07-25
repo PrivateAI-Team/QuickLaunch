@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickLaunch – Seu lançador de aplicativos inteligente</title>
+  <!-- Google Font for clean typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pk1eiT+KwBN1xwQEk7jHc5k6ymVcL/rqRrV3UA5NJh+eHx6PvvtjXKl/HvmD7oWFYUHd7LBNkPEc+Sxk+1aywg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      /* Palette inspired by the QuickLaunch screenshot */
+      --primary-color: #043f91;
+      --primary-dark: #031e4d;
+      --accent-color: #00bfff;
+      --text-light: #f5f7fa;
+      --text-dark: #0a192f;
+      --section-bg: #f9fbfd;
+      --border-radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      line-height: 1.6;
+      background-color: var(--section-bg);
+    }
+
+    /* Hero section with overlay */
+    header {
+      position: relative;
+      height: 80vh;
+      background: url('https://raw.githubusercontent.com/xjosematheus29/QuickLaunch/master/img.png') no-repeat center center/cover;
+      color: var(--text-light);
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* dark overlay for readability */
+      background: rgba(4, 31, 80, 0.75);
+    }
+    header .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20vh 20px 0;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    header p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      color: var(--text-light);
+    }
+    .download-btn {
+      background-color: var(--accent-color);
+      color: var(--text-dark);
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .download-btn:hover {
+      background-color: #0099cc;
+    }
+
+    /* Sections */
+    section {
+      padding: 60px 20px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-dark);
+    }
+    .section-subtitle {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      color: #51658d;
+    }
+
+    /* Features grid */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .feature-card {
+      background-color: #ffffff;
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+      margin-bottom: 15px;
+    }
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+    }
+    .feature-desc {
+      font-size: 0.95rem;
+      color: #606f8f;
+    }
+
+    /* Steps list */
+    .steps {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .steps ol {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+    }
+    .steps li {
+      position: relative;
+      padding-left: 50px;
+      margin-bottom: 20px;
+    }
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+    .steps li strong {
+      color: var(--primary-dark);
+    }
+
+    /* Collapsible sections for usage and privacy */
+    .accordion {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .accordion-item {
+      background-color: #ffffff;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .accordion-header {
+      cursor: pointer;
+      padding: 15px 20px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      position: relative;
+    }
+    .accordion-header .fa {
+      margin-right: 8px;
+      color: var(--accent-color);
+    }
+    .accordion-header::after {
+      /* plus sign initially */
+      content: '+';
+      font-size: 1.2rem;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform 0.3s ease;
+    }
+    /* when active, show minus */
+    .accordion-header.active::after {
+      content: '-';
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      padding: 0 20px;
+      background-color: #fdfdfd;
+    }
+    .accordion-content p,
+    .accordion-content ul {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .accordion-content ul {
+      list-style-type: disc;
+      margin-left: 20px;
+    }
+    /* Footer */
+    footer {
+      background-color: var(--primary-dark);
+      color: var(--text-light);
+      text-align: center;
+      padding: 20px 10px;
+    }
+    footer a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Responsive text scaling */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2.4rem;
+      }
+      header p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <header>
+    <div class="hero-content">
+      <h1>QuickLaunch</h1>
+      <p>O lançador de aplicativos para macOS que você sempre quis. Encontre, organize e descubra apps com Inteligência Artificial.</p>
+      <a href="https://github.com/PrivateAI-Team/QuickLaunch/releases/download/quicklaunch1-0/QuickLaunchApp.zip" class="download-btn" target="_blank" rel="noopener">Baixar agora</a>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section id="features">
+    <h2 class="section-title">Funcionalidades Principais</h2>
+    <p class="section-subtitle">Descubra tudo o que o QuickLaunch pode fazer para aumentar sua produtividade e simplificar a forma como você interage com seus aplicativos.</p>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+        <h3 class="feature-title">Busca Inteligente</h3>
+        <p class="feature-desc">Encontre qualquer aplicativo instantaneamente com uma busca simples e rápida.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+        <h3 class="feature-title">Pesquisa com IA</h3>
+        <p class="feature-desc">Use linguagem natural para encontrar o que precisa. Busque por “apps de imagem” ou “programas para escrever texto” e deixe a IA trabalhar por você.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-lightbulb"></i></div>
+        <h3 class="feature-title">Recomendador de Apps</h3>
+        <p class="feature-desc">Não sabe qual app usar? Pergunte ao assistente de IA e receba sugestões inteligentes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-folder-open"></i></div>
+        <h3 class="feature-title">Organização com Pastas</h3>
+        <p class="feature-desc">Arraste e solte aplicativos para criar pastas e mantenha tudo organizado do seu jeito.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-rocket"></i></div>
+        <h3 class="feature-title">Modo Avançado</h3>
+        <p class="feature-desc">Adicione suas próprias pastas de aplicativos, inclusive de HD externos ou diretórios específicos, para uma busca ainda mais completa.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-desktop"></i></div>
+        <h3 class="feature-title">Interface Moderna</h3>
+        <p class="feature-desc">Construído com SwiftUI para uma experiência fluida e visualmente agradável.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-user-shield"></i></div>
+        <h3 class="feature-title">Foco na Privacidade</h3>
+        <p class="feature-desc">Suas buscas e conversas com a IA são privadas. Consulte a seção de privacidade para entender como tratamos seus dados.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation Section -->
+  <section id="instalacao" style="background-color:#ffffff;">
+    <h2 class="section-title">Instalação Rápida</h2>
+    <p class="section-subtitle">Siga três passos simples para começar a usar o QuickLaunch no seu Mac.</p>
+    <div class="steps">
+      <ol>
+        <li><strong>Baixar:</strong> Faça o download do arquivo <code>QuickLaunchApp.zip</code> clicando no botão acima.</li>
+        <li><strong>Descompactar:</strong> Dê um duplo clique no arquivo <code>.zip</code> para extraí-lo.</li>
+        <li><strong>Mover:</strong> Arraste o ícone do aplicativo <code>QuickLaunch.app</code> para a sua pasta de <em>Aplicativos</em>.</li>
+      </ol>
+      <p>Pronto! Agora você pode abrir o QuickLaunch a partir da sua pasta de Aplicativos ou pelo Launchpad.</p>
+    </div>
+  </section>
+
+  <!-- Accordion Section: Usage and Privacy -->
+  <section id="detalhes">
+    <h2 class="section-title">Mais Detalhes</h2>
+    <div class="accordion">
+      <!-- Uso -->
+      <div class="accordion-item">
+        <div class="accordion-header"><i class="fa-solid fa-play"></i>Como Usar o QuickLaunch</div>
+        <div class="accordion-content">
+          <ul>
+            <li><strong>Buscar Apps:</strong> Comece a digitar o nome de um aplicativo na barra de busca.</li>
+            <li><strong>Usar a Busca com IA:</strong> Ative o toggle “Pesquisa com IA” e escreva o que você precisa em linguagem natural (ex: “editor de vídeo gratuito”). Pressione Enter para ver os resultados.</li>
+            <li><strong>Criar Pastas:</strong> Arraste um aplicativo e solte-o em cima de outro para criar uma nova pasta.</li>
+            <li><strong>Adicionar a uma Pasta:</strong> Arraste um aplicativo e solte-o em uma pasta existente.</li>
+            <li><strong>Falar com o Assistente:</strong> Clique no botão flutuante de lâmpada para abrir o chat e pedir recomendações de apps.</li>
+            <li><strong>Ativar Modo Avançado:</strong> Na tela principal, ative o toggle “Modo Avançado” e clique no botão + para adicionar pastas onde o QuickLaunch deve procurar por aplicativos.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Aviso de Segurança -->
+      <div class="accordion-item">
+        <div class="accordion-header"><i class="fa-solid fa-shield-halved"></i>Aviso sobre a Segurança do macOS</div>
+        <div class="accordion-content">
+          <p>O QuickLaunch não possui validação da Apple porque isso exige o pagamento de uma taxa anual ao programa de desenvolvedores. Por isso, ao abrir o aplicativo pela primeira vez, o macOS pode exibir um aviso informando que o aplicativo é de um desenvolvedor não identificado e bloquear sua abertura. Para contornar isso:</p>
+          <ul>
+            <li>Acesse <em>Ajustes do Sistema &gt; Privacidade e Segurança</em>.</li>
+            <li>Role a tela até a seção <em>Segurança</em>.</li>
+            <li>Localize a mensagem informando que o “QuickLaunch” foi bloqueado e clique em <strong>Abrir Mesmo Assim</strong>.</li>
+            <li>Confirme a ação. Você só precisará fazer isso uma única vez.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Privacidade -->
+      <div class="accordion-item">
+        <div class="accordion-header"><i class="fa-solid fa-user-secret"></i>Privacidade</div>
+        <div class="accordion-content">
+          <p>Sua privacidade é uma prioridade para nós. Veja abaixo quais dados são utilizados e como são tratados:</p>
+          <ul>
+            <li><strong>Pesquisa com IA:</strong> Para que a busca com linguagem natural funcione, o texto da sua pesquisa e a lista de nomes dos seus aplicativos são enviados <strong>de forma anônima</strong> para a API do Google Gemini.</li>
+            <li><strong>Recomendador de Apps:</strong> As mensagens que você envia no chat são encaminhadas para a API do Google Gemini para gerar as respostas.</li>
+            <li><em>Nota:</em> O Google não utiliza os dados enviados via API para treinar seus modelos de Inteligência Artificial. Você pode ler mais sobre a governança de dados nas políticas da Google.</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Tecnologias -->
+      <div class="accordion-item">
+        <div class="accordion-header"><i class="fa-solid fa-code"></i>Tecnologias Utilizadas</div>
+        <div class="accordion-content">
+          <p>O QuickLaunch é construído com tecnologias modernas e robustas:</p>
+          <ul>
+            <li><strong>SwiftUI:</strong> Utilizado para toda a interface nativa no macOS, proporcionando uma experiência fluida.</li>
+            <li><strong>Google Gemini API:</strong> Motor das funcionalidades de Inteligência Artificial.</li>
+            <li><strong>Combine Framework:</strong> Facilita a programação reativa e assíncrona no aplicativo.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 QuickLaunch. Código fonte disponível em <a href="https://github.com/xjosematheus29/QuickLaunch" target="_blank" rel="noopener">GitHub</a>. Projeto sob licença MIT.</p>
+  </footer>
+
+  <!-- JavaScript for accordion -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const headers = document.querySelectorAll('.accordion-header');
+      headers.forEach(header => {
+        header.addEventListener('click', function() {
+          const currentlyActive = document.querySelector('.accordion-header.active');
+          // Close currently active accordion if clicking a different one
+          if (currentlyActive && currentlyActive !== this) {
+            currentlyActive.classList.remove('active');
+            const content = currentlyActive.nextElementSibling;
+            content.style.maxHeight = null;
+          }
+          // Toggle the clicked accordion
+          this.classList.toggle('active');
+          const content = this.nextElementSibling;
+          if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+          } else {
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
