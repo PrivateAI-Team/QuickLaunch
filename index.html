@@ -37,9 +37,9 @@
       /* Abstract radial-gradient background to avoid showing specific icons from the screenshot */
       background-color: var(--primary-color);
       background-image:
-        radial-gradient(at 20% 20%, rgba(0,191,255,0.35), transparent 60%),
-        radial-gradient(at 80% 20%, rgba(0,145,234,0.4), transparent 60%),
-        radial-gradient(at 50% 80%, rgba(4,31,80,0.5), transparent 65%);
+        radial-gradient(at 20% 20%, rgba(0, 191, 255, 0.35), transparent 60%),
+        radial-gradient(at 80% 20%, rgba(0, 145, 234, 0.4), transparent 60%),
+        radial-gradient(at 50% 80%, rgba(4, 31, 80, 0.5), transparent 65%);
       background-size: cover;
       color: var(--text-light);
     }
@@ -52,7 +52,7 @@
       width: 100%;
       height: 100%;
       /* gradient overlay for readability on top of radial background */
-      background: linear-gradient(180deg, rgba(4,31,80,0.15) 0%, rgba(4,31,80,0.75) 90%);
+      background: linear-gradient(180deg, rgba(4, 31, 80, 0.15) 0%, rgba(4, 31, 80, 0.75) 90%);
     }
     header .hero-content {
       position: relative;
@@ -133,6 +133,10 @@
       color: #51658d;
     }
 
+    body.dark-mode .section-subtitle {
+      color: #a5b8d8;
+    }
+
     /* Unique backgrounds for sections to add visual variety */
     #features {
       background: linear-gradient(180deg, #f5faff 0%, #eef5ff 100%);
@@ -142,6 +146,17 @@
     }
     #detalhes {
       background: #f7faff;
+    }
+
+    /* Dark mode overrides for section backgrounds */
+    body.dark-mode #features {
+      background: linear-gradient(180deg, #031d48 0%, #021c39 100%);
+    }
+    body.dark-mode #instalacao {
+      background: #011c39;
+    }
+    body.dark-mode #detalhes {
+      background: #021a35;
     }
 
     /* Features grid */
@@ -175,6 +190,11 @@
     .feature-desc {
       font-size: 0.95rem;
       color: #606f8f;
+    }
+
+    body.dark-mode .feature-desc {
+      /* Increase contrast for descriptions in dark mode */
+      color: #a5c0e0;
     }
 
     /* Steps list */
@@ -290,6 +310,88 @@
       width: calc(133% + 1.3px);
       height: 90px;
     }
+
+    /* Toggle button for switching between light and dark mode */
+    .mode-toggle {
+      position: fixed;
+      top: 18px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+      z-index: 3;
+      border: 2px solid rgba(255,255,255,0.6);
+    }
+    .mode-toggle:hover {
+      transform: scale(1.05);
+    }
+    /* Dark mode toggle color adjustments */
+    body.dark-mode .mode-toggle {
+      background-color: #005c9b;
+      color: #ffffff;
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    /* Dark mode variables and overrides */
+    body.dark-mode {
+      --primary-color: #021f3c;
+      --primary-dark: #eaf2fc;
+      --accent-color: #00bfff;
+      --text-light: #dae6f4;
+      --text-dark: #f5f9ff;
+      --section-bg: #021c39;
+    }
+
+    /* Enhance hero styling specifically for dark mode with a deeper blue palette */
+    body.dark-mode header {
+      background-color: #001e40;
+      background-image:
+        radial-gradient(at 30% 30%, rgba(0, 95, 191, 0.4), transparent 60%),
+        radial-gradient(at 80% 20%, rgba(0, 60, 120, 0.5), transparent 60%),
+        radial-gradient(at 50% 80%, rgba(0, 45, 90, 0.55), transparent 65%);
+    }
+    body.dark-mode header::after {
+      /* Darker overlay in dark mode for depth */
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.65) 90%);
+    }
+
+    /* Dark mode specific styles for cards and accordions */
+    body.dark-mode .feature-card {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+    body.dark-mode .feature-card:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    }
+    body.dark-mode .accordion-item {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    }
+    body.dark-mode .accordion-content {
+      background-color: #031a34;
+    }
+    body.dark-mode .steps li::before {
+      background: linear-gradient(135deg, var(--accent-color), #007bbf);
+      color: var(--primary-dark);
+    }
+    body.dark-mode footer {
+      background-color: var(--primary-dark);
+      color: var(--text-light);
+    }
+    body.dark-mode a {
+      color: var(--accent-color);
+    }
     /* Footer */
     footer {
       background-color: var(--primary-dark);
@@ -318,6 +420,7 @@
 <body>
   <!-- Hero Section -->
   <header>
+    <div id="modeToggle" class="mode-toggle">🌙</div>
     <div class="hero-content">
       <h1>QuickLaunch</h1>
       <p>O lançador de aplicativos para macOS que você sempre quis. Encontre, organize e descubra apps com Inteligência Artificial.</p>
@@ -485,6 +588,21 @@
       }, { threshold: 0.15 });
       document.querySelectorAll('.fade-section').forEach(section => {
         observer.observe(section);
+      });
+
+      // Dark mode toggle functionality
+      const modeToggle = document.getElementById('modeToggle');
+      const body = document.body;
+      // Apply saved mode from localStorage on load
+      const savedDark = localStorage.getItem('darkMode') === 'true';
+      if (savedDark) {
+        body.classList.add('dark-mode');
+        modeToggle.textContent = '☀️';
+      }
+      modeToggle.addEventListener('click', () => {
+        const isDark = body.classList.toggle('dark-mode');
+        localStorage.setItem('darkMode', isDark);
+        modeToggle.textContent = isDark ? '☀️' : '🌙';
       });
     });
   </script>
